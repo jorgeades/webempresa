@@ -12,21 +12,17 @@ namespace BDDEmpresa.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Empleado
+    public partial class Centros
     {
-        public Empleado()
+        public Centros()
         {
-            this.Centros = new HashSet<Centros>();
+            this.Empleado = new HashSet<Empleado>();
         }
     
-        public string DNI { get; set; }
-        public string Nombre { get; set; }
-        public string Apellidos { get; set; }
-        public double Salario { get; set; }
-        public System.DateTime FechaAlta { get; set; }
-        public Nullable<int> idCargo { get; set; }
+        public int id { get; set; }
+        public string nombre { get; set; }
+        public string direccion { get; set; }
     
-        public virtual Cargos Cargos { get; set; }
-        public virtual ICollection<Centros> Centros { get; set; }
+        public virtual ICollection<Empleado> Empleado { get; set; }
     }
 }

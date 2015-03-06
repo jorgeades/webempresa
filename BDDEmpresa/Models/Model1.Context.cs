@@ -13,10 +13,10 @@ namespace BDDEmpresa.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class EmpresaEntities : DbContext
+    public partial class EmpresaEntities1 : DbContext
     {
-        public EmpresaEntities()
-            : base("name=EmpresaEntities")
+        public EmpresaEntities1()
+            : base("name=EmpresaEntities1")
         {
         }
     
@@ -26,6 +26,7 @@ namespace BDDEmpresa.Models
         }
     
         public virtual DbSet<Cargos> Cargos { get; set; }
+        public virtual DbSet<Centros> Centros { get; set; }
         public virtual DbSet<Empleado> Empleado { get; set; }
     }
 }

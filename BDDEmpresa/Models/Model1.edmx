@@ -12,6 +12,14 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="NombreCargo" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <EntityType Name="Centros">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="direccion" Type="nvarchar" MaxLength="300" Nullable="false" />
+        </EntityType>
         <EntityType Name="Empleado">
           <Key>
             <PropertyRef Name="DNI" />
@@ -21,10 +29,18 @@
           <Property Name="Apellidos" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="Salario" Type="float" Nullable="false" />
           <Property Name="FechaAlta" Type="date" Nullable="false" />
-          <Property Name="idCargo" Type="int" Nullable="false" />
+          <Property Name="idCargo" Type="int" />
+        </EntityType>
+        <EntityType Name="EmpleadosXCentro">
+          <Key>
+            <PropertyRef Name="idEmpleado" />
+            <PropertyRef Name="IdCentro" />
+          </Key>
+          <Property Name="idEmpleado" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IdCentro" Type="int" Nullable="false" />
         </EntityType>
         <Association Name="FK_Empleado_Cargos">
-          <End Role="Cargos" Type="Self.Cargos" Multiplicity="1" />
+          <End Role="Cargos" Type="Self.Cargos" Multiplicity="0..1" />
           <End Role="Empleado" Type="Self.Empleado" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Cargos">
@@ -35,12 +51,46 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_EmpleadosXCentro_Centros">
+          <End Role="Centros" Type="Self.Centros" Multiplicity="1" />
+          <End Role="EmpleadosXCentro" Type="Self.EmpleadosXCentro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Centros">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="EmpleadosXCentro">
+              <PropertyRef Name="IdCentro" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmpleadosXCentro_Empleado">
+          <End Role="Empleado" Type="Self.Empleado" Multiplicity="1" />
+          <End Role="EmpleadosXCentro" Type="Self.EmpleadosXCentro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleado">
+              <PropertyRef Name="DNI" />
+            </Principal>
+            <Dependent Role="EmpleadosXCentro">
+              <PropertyRef Name="idEmpleado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="EmpresaModelStoreContainer">
           <EntitySet Name="Cargos" EntityType="Self.Cargos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Centros" EntityType="Self.Centros" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Empleado" EntityType="Self.Empleado" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EmpleadosXCentro" EntityType="Self.EmpleadosXCentro" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Empleado_Cargos" Association="Self.FK_Empleado_Cargos">
             <End Role="Cargos" EntitySet="Cargos" />
             <End Role="Empleado" EntitySet="Empleado" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmpleadosXCentro_Centros" Association="Self.FK_EmpleadosXCentro_Centros">
+            <End Role="Centros" EntitySet="Centros" />
+            <End Role="EmpleadosXCentro" EntitySet="EmpleadosXCentro" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmpleadosXCentro_Empleado" Association="Self.FK_EmpleadosXCentro_Empleado">
+            <End Role="Empleado" EntitySet="Empleado" />
+            <End Role="EmpleadosXCentro" EntitySet="EmpleadosXCentro" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -56,6 +106,15 @@
           <Property Name="NombreCargo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Empleado" Relationship="Self.FK_Empleado_Cargos" FromRole="Cargos" ToRole="Empleado" />
         </EntityType>
+        <EntityType Name="Centros">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="direccion" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Empleado" Relationship="Self.EmpleadosXCentro" FromRole="Centros" ToRole="Empleado" />
+        </EntityType>
         <EntityType Name="Empleado">
           <Key>
             <PropertyRef Name="DNI" />
@@ -65,11 +124,12 @@
           <Property Name="Apellidos" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Salario" Type="Double" Nullable="false" />
           <Property Name="FechaAlta" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="idCargo" Type="Int32" Nullable="false" />
+          <Property Name="idCargo" Type="Int32" />
           <NavigationProperty Name="Cargos" Relationship="Self.FK_Empleado_Cargos" FromRole="Empleado" ToRole="Cargos" />
+          <NavigationProperty Name="Centros" Relationship="Self.EmpleadosXCentro" FromRole="Empleado" ToRole="Centros" />
         </EntityType>
         <Association Name="FK_Empleado_Cargos">
-          <End Role="Cargos" Type="Self.Cargos" Multiplicity="1" />
+          <End Role="Cargos" Type="Self.Cargos" Multiplicity="0..1" />
           <End Role="Empleado" Type="Self.Empleado" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Cargos">
@@ -80,11 +140,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="EmpresaEntities" annotation:LazyLoadingEnabled="true">
+        <Association Name="EmpleadosXCentro">
+          <End Role="Centros" Type="Self.Centros" Multiplicity="*" />
+          <End Role="Empleado" Type="Self.Empleado" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="EmpresaEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Cargos" EntityType="Self.Cargos" />
+          <EntitySet Name="Centros" EntityType="Self.Centros" />
           <EntitySet Name="Empleado" EntityType="Self.Empleado" />
           <AssociationSet Name="FK_Empleado_Cargos" Association="Self.FK_Empleado_Cargos">
             <End Role="Cargos" EntitySet="Cargos" />
+            <End Role="Empleado" EntitySet="Empleado" />
+          </AssociationSet>
+          <AssociationSet Name="EmpleadosXCentro" Association="Self.EmpleadosXCentro">
+            <End Role="Centros" EntitySet="Centros" />
             <End Role="Empleado" EntitySet="Empleado" />
           </AssociationSet>
         </EntityContainer>
@@ -93,12 +162,21 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="EmpresaModelStoreContainer" CdmEntityContainer="EmpresaEntities">
+        <EntityContainerMapping StorageEntityContainer="EmpresaModelStoreContainer" CdmEntityContainer="EmpresaEntities1">
           <EntitySetMapping Name="Cargos">
             <EntityTypeMapping TypeName="EmpresaModel.Cargos">
               <MappingFragment StoreEntitySet="Cargos">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="NombreCargo" ColumnName="NombreCargo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Centros">
+            <EntityTypeMapping TypeName="EmpresaModel.Centros">
+              <MappingFragment StoreEntitySet="Centros">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="direccion" ColumnName="direccion" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -114,6 +192,14 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <AssociationSetMapping Name="EmpleadosXCentro" TypeName="EmpresaModel.EmpleadosXCentro" StoreEntitySet="EmpleadosXCentro">
+            <EndProperty Name="Centros">
+              <ScalarProperty Name="id" ColumnName="IdCentro" />
+            </EndProperty>
+            <EndProperty Name="Empleado">
+              <ScalarProperty Name="DNI" ColumnName="idEmpleado" />
+            </EndProperty>
+          </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -1,0 +1,34 @@
+﻿@model IEnumerable<BDDEmpresa.Models.Centros>
+@{
+    ViewBag.Title = "Index";
+    bool par = false;
+}
+
+<h2>Listado de trabajadores por centro</h2>
+
+@foreach (var item in Model)
+{
+
+    <div style="@(par ? "background:silver;" : "background:grey;"); float: left; width: 100%">
+        <h3>Centro de trabajo:  @item.nombre</h3><br />
+        
+
+        <div style="float: left;">
+            <h3>Empleados</h3>
+            <ul>
+                @foreach (var empl in item.Empleado)
+                {
+                    <li>@empl.Nombre @empl.Apellidos</li>
+                }
+            </ul>
+
+        </div>
+
+
+
+
+        </div>
+
+
+                par = !par;
+}

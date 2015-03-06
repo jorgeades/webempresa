@@ -10,7 +10,7 @@ namespace BDDEmpresa.Controllers
     public class HomeController : Controller
     {
 
-        EmpresaEntities db = new EmpresaEntities();
+        EmpresaEntities1 db = new EmpresaEntities1();
 
         // GET: Home
         public ActionResult Index()
@@ -32,7 +32,7 @@ namespace BDDEmpresa.Controllers
         {
             if (ModelState.IsValid)
             {
-                using (var db = new EmpresaEntities())
+                using (var db = new EmpresaEntities1())
                 {
                     db.Empleado.Add(model);
                     db.SaveChanges();
@@ -49,7 +49,7 @@ namespace BDDEmpresa.Controllers
         {
             var bus = Request.Form["busqueda"];
 
-            var db = new EmpresaEntities();
+            var db = new EmpresaEntities1();
             var em = db.Empleado.Where(o => o.Cargos.NombreCargo.Contains(bus));
 
             return View(em);
