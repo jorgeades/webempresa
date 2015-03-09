@@ -1,17 +1,19 @@
-﻿@model IEnumerable<BDDEmpresa.Models.Centros>
+﻿@model IEnumerable<BDDEmpresa.Models.Cargos>
 @{
     ViewBag.Title = "Index";
     bool par = false;
 }
 
-<h2>Listado de trabajadores por centro</h2>
+<h2>Listado de Cargos</h2>
 
+@Html.ActionLink("Nuevo Cargo", "Alta")
 @foreach (var item in Model)
 {
 
     <div style="@(par ? "background:silver;" : "background:gold;"); float: left; width: 100%">
-        <h3>Centro de trabajo:  @item.nombre</h3><br />
-        
+        <h3>Cargo:  @item.NombreCargo</h3><br />
+        @Html.ActionLink("Borrar un cargo", "Borrar", new { id = item.Id})
+        @Html.ActionLink("Modificar un cargo", "Modificar", new { id = item.Id })
 
         <div style="float: left;">
             <h3>Empleados</h3>
@@ -25,12 +27,6 @@
         </div>
 
 
-
-
-        </div>
-
-
-    par = !par;
-
-    
+    </div>
+                par = !par;
 }

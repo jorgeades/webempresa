@@ -1,0 +1,24 @@
+﻿@model BDDEmpresa.Models.Cargos
+
+
+
+@{
+    ViewBag.Title = "Alta";
+}
+
+<h2>Nuevo Cargo</h2>
+
+@Html.ValidationSummary(false)
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    @Html.LabelFor((o => o.NombreCargo))
+    @Html.EditorFor((o => o.NombreCargo))
+    <br />
+   
+    <input type="submit" value="Enviar datos" />
+
+
+}

@@ -130,6 +130,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\CargosController.cs" />
     <Compile Include="Controllers\CentrosController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
@@ -169,6 +170,9 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\Buscar.cshtml" />
     <Content Include="Views\Centros\Index.cshtml" />
+    <Content Include="Views\Cargos\Index.cshtml" />
+    <Content Include="Views\Cargos\Alta.cshtml" />
+    <Content Include="Views\Cargos\Modificar.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

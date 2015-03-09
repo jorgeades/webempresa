@@ -17,6 +17,10 @@ namespace BDDEmpresa.Controllers
         {
             return View(db.Centros);
         }
+
+ 
+
+
         protected override void Dispose(bool disposing)
         {
             base.Dispose(disposing);
