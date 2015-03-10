@@ -10,7 +10,7 @@
 @foreach (var item in Model)
 {
 
-    <div style="@(par ? "background:silver;" : "background:gold;"); float: left; width: 100%">
+    <div style="@(par ? "background:lavender;" : "background:PowderBlue;"); float: left; width: 100%">
         <h3>Cargo:  @item.NombreCargo</h3><br />
         @Html.ActionLink("Borrar un cargo", "Borrar", new { id = item.Id})
         @Html.ActionLink("Modificar un cargo", "Modificar", new { id = item.Id })

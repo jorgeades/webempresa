@@ -23,7 +23,9 @@ namespace BDDEmpresa.Controllers
 
         public ActionResult Alta()
         {
-
+            ViewBag.idCargos =
+            new SelectList(db.Cargos, "Id", "NombreCargo");
+            ViewBag.idCargos = new MultiSelectList(db.Cargos, "Id", "NombreCargo");
             return View(new Models.Empleado());
         }
 
