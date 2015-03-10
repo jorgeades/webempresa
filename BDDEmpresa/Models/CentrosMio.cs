@@ -7,6 +7,6 @@ namespace BDDEmpresa.Models
 {
     public partial class Empleado
     {
-        public List<int> idCargos { get; set; }
+        public List<int> IdCentros { get; set; }
     }
 }

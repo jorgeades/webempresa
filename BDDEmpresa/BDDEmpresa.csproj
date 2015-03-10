@@ -136,13 +136,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\CargoMio.cs" />
     <Compile Include="Models\Cargos.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Centros.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CentrosMio.cs" />
     <Compile Include="Models\Empleado.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>

@@ -23,9 +23,8 @@ namespace BDDEmpresa.Controllers
 
         public ActionResult Alta()
         {
-            ViewBag.idCargos =
-            new SelectList(db.Cargos, "Id", "NombreCargo");
-            ViewBag.idCargos = new MultiSelectList(db.Cargos, "Id", "NombreCargo");
+            ViewBag.idCargo = new SelectList(db.Cargos, "Id", "NombreCargo");
+            ViewBag.IdCentros = new MultiSelectList(db.Centros, "id", "nombre");
             return View(new Models.Empleado());
         }
 
@@ -37,6 +36,14 @@ namespace BDDEmpresa.Controllers
                 using (var db = new EmpresaEntities1())
                 {
                     db.Empleado.Add(model);
+
+                    foreach (var idc in model.IdCentros)
+                    {
+                        var c = db.Centros.Find(idc);
+                        model.Centros.Add(c);
+
+                    }
+
                     db.SaveChanges();
                     return RedirectToAction("Index");
                 }
